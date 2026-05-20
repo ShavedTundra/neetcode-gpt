@@ -29,22 +29,22 @@ class Solution:
         # Use torch.manual_seed(0) once at the start.
         # Return the std of activations after each layer, rounded to 2 decimals.
         torch.manual_seed(0)
-        dims = [input_dim] + [hidden_dim]* num_layers
+        dims = [input_dim] + [hidden_dim] * num_layers
         weights = []
+
         for i in range(num_layers):
             if init_type == 'xavier':
-                std = math.sqrt(2/(dims[i] + dims[i+1]))
+                std = math.sqrt(2/(dims[i]+dims[n+1]))
             elif init_type == 'kaiming':
                 std = math.sqrt(2/dims[i])
             else:
                 std = 1
-            
             w = torch.randn(dims[i+1], dims[i])*std
-            weights.append(w)
 
+            weights.append(w)
+        
         x = torch.randn(1, input_dim)
         stds = []
-
         for w in weights:
             x = x @ w.T
             x = torch.relu(x)
