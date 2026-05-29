@@ -31,7 +31,7 @@ class Solution:
         #    with depth AND the last layer's fraction > 0.1
         # 4. 'healthy' if max dead fraction < 0.1
         # 5. 'healthy' otherwise
-        if len(dead_fractions)==0: return 'healthy'
+        
 
         max_frac = max(dead_fractions)
 
