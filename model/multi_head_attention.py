@@ -15,7 +15,7 @@ class MultiHeadedSelfAttention(nn.Module):
         for i in range(num_heads):
             self.att_heads.append(self.SingleHeadAttention(embedding_dim, attention_dim // num_heads))
         
-        self.output_proj = nn.Linear(attention_dim, attention_dim, bias=False)
+        self.proj_output = nn.Linear(attention_dim, attention_dim, bias=False)
 
     def forward(self, embedded: TensorType[float]) -> TensorType[float]:
         # Run each head on the input, concatenate outputs along dim=2
@@ -24,10 +24,10 @@ class MultiHeadedSelfAttention(nn.Module):
         head_outputs = []
         for head in self.att_heads:
             head_outputs.append(head(embedded))
-        
-        concatenated = torch.cat(head_outputs, dim=2)
+        concat = torch.cat(head_outputs, dim=2)
 
-        return torch.round(self.output_proj(concatenated), decimals=4)
+        res = self.proj_output(concat)
+        return torch.round(res, decimals=4)
 
     class SingleHeadAttention(nn.Module):
         def __init__(self, embedding_dim: int, attention_dim: int):
