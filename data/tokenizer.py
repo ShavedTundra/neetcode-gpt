@@ -29,7 +29,7 @@ class Solution:
             # Find most frequent pair
             best_count = max(pairs.values())
 
-            candidates = sorted(p for p, c in pairs.items() if c == best_count)
+            candidates = sorted(p for p,c in pairs.items() if c == best_count)
 
             best = candidates[0]
             merges.append([best[0], best[1]])
