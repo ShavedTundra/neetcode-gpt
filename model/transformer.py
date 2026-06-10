@@ -15,8 +15,8 @@ class TransformerBlock(nn.Module):
         # 3. Two nn.LayerNorm(model_dim) instances
         self.attention = self.MultiHeadedSelfAttention(model_dim, num_heads)
         self.linear_net = self.VanillaNeuralNetwork(model_dim)
-        self.layerNorm1 = nn.LayerNorm(model_dim)
-        self.layerNorm2 = nn.LayerNorm(model_dim)
+        self.layer_norm_1 = nn.LayerNorm(model_dim)
+        self.layer_norm_2 = nn.LayerNorm(model_dim)
 
     def forward(self, embedded: TensorType[float]) -> TensorType[float]:
         torch.manual_seed(0)
@@ -24,8 +24,8 @@ class TransformerBlock(nn.Module):
         #   x = x + attention(layer_norm_1(x))
         #   x = x + feed_forward(layer_norm_2(x))
         # Return result rounded to 4 decimal places
-        embedded = embedded + self.attention(self.layerNorm1(embedded))
-        embedded = embedded + self.linear_net(self.layerNorm2(embedded))
+        embedded = embedded + self.attention(self.layer_norm_1(embedded))
+        embedded = embedded + self.linear_net(self.layer_norm_2(embedded))
         return torch.round(embedded, decimals=4)
 
     class MultiHeadedSelfAttention(nn.Module):
