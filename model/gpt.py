@@ -30,9 +30,8 @@ class GPT(nn.Module):
 
         out = self.final_norm(self.transformer_blocks(embedded))
         logits = self.vocab_proj(out)
-
+        
         return torch.round(logits, decimals=4)
-
     # Do NOT modify the code below this line
     class TransformerBlock(nn.Module):
 
