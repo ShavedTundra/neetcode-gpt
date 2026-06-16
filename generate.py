@@ -28,12 +28,12 @@ class Solution:
             # The line where you call torch.multinomial(). Pass in the generator as well.
 
             #Sample next token
-            next_token = torch.multinomial(probs, num_samples=1, generator=generator)
+            next_token = torch.multinomial(probs, num_samples=1, generator=generator) # (B, 1)
             generator.set_state(initial_state)
 
             # append token to running sequence of context (=idx)
-
-            context = torch.cat((context, next_token), dim=1) # (B, C+1)
+            # T == time == context
+            context = torch.cat((context, next_token), dim=1) # (B,T+1)
 
             result.append(int_to_char[next_token.item()])
 
