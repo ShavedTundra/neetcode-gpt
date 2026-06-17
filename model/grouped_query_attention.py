@@ -34,7 +34,7 @@ class GroupedQueryAttention(nn.Module):
 
         scores = (q @ k.transpose(-2,-1)) * (self.head_dim ** -0.5)
         mask = torch.tril(torch.ones(T,T, device = x.device))
-        scores = scores.masked_fill(mask==0, -999999999)
+        scores = scores.masked_fill(mask==0, float("-inf"))
         weights = torch.softmax(scores, dim=-1)
 
         out = (weights @ v).transpose(1,2).contiguous().view(B, T, -1)
