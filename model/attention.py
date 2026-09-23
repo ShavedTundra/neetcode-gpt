@@ -32,7 +32,7 @@ class SingleHeadAttention(nn.Module):
         lower_triang = torch.tril(torch.ones(context_length, context_length))
 
         mask = lower_triang == 0
-        att_scores = att_scores.masked_fill(mask, -1e7)
+        att_scores = att_scores.masked_fill(mask, -1e2)
 
         att_scores = nn.functional.softmax(att_scores, dim=-1)
 
