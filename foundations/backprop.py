@@ -14,7 +14,7 @@ class Solution:
         # Loss: L = 0.5 * (y_hat - y_true)^2
         # Return: (dL_dw rounded to 5 decimals, dL_db rounded to 5 decimals)
         z = np.dot(w, x) + b
-        y_hat = 1 / (1 + np.exp(-z))
+        y_hat = 1 / (1+np.exp(-z))
         delta = y_hat - y_true
 
         grad = y_hat*(1-y_hat)
